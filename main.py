@@ -52,27 +52,35 @@ def main():
 
     # Importar los niveles
     from nivel import nivel_1
-    from nivel2 import nivel_2
     from nivel3 import nivel_3
-
     running = True
     current_level = 0
+    pygame.mixer.music.load("audios/Goblins_Dance_(Battle).wav")
+    volumen = 0.4  # Establecer el volumen deseado (en este caso, la mitad del volumen máximo)
+    pygame.mixer.music.set_volume(volumen)
+    pygame.mixer.music.play(loops=-1)
 
+    # Configurar el evento de finalización de la música
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            if event.type == pygame.USEREVENT + 1:
+                pygame.mixer.music.play(loops=-1)  # Reiniciar la reproducción en bucle
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if level_1_rect.collidepoint(event.pos):
                     current_level = 1
+                if level_3_rect.collidepoint(event.pos):
+                    current_level = 2
 
         print(current_level)
-
         # Ejecutar el nivel seleccionado
         if current_level == 1:
             nivel_1()
-
+        if current_level == 2:
+            nivel_3()
+  
         # Renderizar los elementos en la pantalla
         screen.blit(background, (0, 0))
         screen.blit(main_frame, main_frame_rect)

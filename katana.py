@@ -5,16 +5,22 @@ from auxiliar import Auxiliar
 
 
 class Objeto(pygame.sprite.Sprite):
-    def __init__(self, x, y, direccion, player, p_scale=1,bandera=False,movimiento=False):
+    def __init__(self, x, y, direccion, player, p_scale=1,bandera=False,movimiento="NO",tipo_enemigo=False,boss=False):
         super().__init__()
         self.player = player
         if(bandera):
-           if movimiento:
+            if movimiento:
                 self.disparo_d = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/enemies/ork_sword/POISON/Poison ({0}).png", 0, 10, flip=False, scale=1)
                 self.disparo_i = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/enemies/ork_sword/POISON/Poison ({0}).png", 0, 10, flip=True, scale=1)
-           else:
+            elif movimiento == False:
                 self.disparo_d = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/enemies/ork_sword/SWORD/Sword ({0}).png", 0, 3, flip=False, scale=0.4)
-                self.disparo_i = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/enemies/ork_sword/SWORD/Sword ({0}).png", 0, 3, flip=False, scale=0.4) 
+                self.disparo_i = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/enemies/ork_sword/SWORD/Sword ({0}).png", 0, 3, flip=False, scale=0.4)
+            elif tipo_enemigo:
+                self.disparo_d = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/ork_axe/Axe ({0}).png", 0, 3, flip=False, scale=0.2)
+                self.disparo_i = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/ork_axe/Axe ({0}).png", 0, 3, flip=False, scale=0.2)
+            elif boss:
+                self.disparo_d = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/ork_axe/Axe ({0}).png", 0, 3, flip=False, scale=0.2)
+                self.disparo_i = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/ork_axe/Axe ({0}).png", 0, 3, flip=False, scale=0.2)                
         else:
             self.disparo_d = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/players/ninja/Katana ({0}).png", 1, 4, flip=False, scale=0.6)
             self.disparo_i = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/players/ninja/Katana ({0}).png", 1, 4, flip=True, scale=0.6)

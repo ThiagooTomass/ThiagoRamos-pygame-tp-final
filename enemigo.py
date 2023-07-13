@@ -6,30 +6,62 @@ from player import *
 
 
 class Enemy(pygame.sprite.Sprite):    
-    def __init__(self,x,y,speed_walk,speed_run,gravity,jump_power,frame_rate_ms,move_rate_ms,jump_height,p_scale=1,interval_time_jump=100,movimiento=False) -> None:
+    def __init__(self,x,y,speed_walk,speed_run,gravity,jump_power,frame_rate_ms,move_rate_ms,jump_height,p_scale=1,interval_time_jump=100,movimiento=False,tipo_enemigo=False,boss=False) -> None:
         super().__init__()
-        self.walk_r = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/enemies/ork_sword/WALK/WALK_00{0}.png",0,7,scale=p_scale)
-        self.walk_l = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/enemies/ork_sword/WALK/WALK_00{0}.png",0,7,flip=True,scale=p_scale)
-        self.stay_r = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/enemies/ork_sword/IDLE/IDLE_00{0}.png",0,7,scale=p_scale)
-        self.stay_l = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/enemies/ork_sword/IDLE/IDLE_00{0}.png",0,7,flip=True,scale=p_scale)
-        self.die_r = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/enemies/ork_sword/DIE/DIE_00{0}.png",0,6,scale=p_scale)
-        self.die_l = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/enemies/ork_sword/DIE/DIE_00{0}.png",0,6,flip=True,scale=p_scale)
-        self.volar = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/enemies/ork_sword/VOLAR/{0}.png",0,15,flip=True,scale=1)
-        self.attack_r = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/enemies/ork_sword/ATTAK/ATTAK_00{0}.png",0,6,scale=p_scale)
-        self.attack_l = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/enemies/ork_sword/ATTAK/ATTAK_00{0}.png",0,6,flip=True,scale=p_scale)
+        if tipo_enemigo == False:
+            self.walk_r = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/enemies/ork_sword/WALK/WALK_00{0}.png",0,7,scale=p_scale)
+            self.walk_l = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/enemies/ork_sword/WALK/WALK_00{0}.png",0,7,flip=True,scale=p_scale)
+            self.stay_r = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/enemies/ork_sword/IDLE/IDLE_00{0}.png",0,7,scale=p_scale)
+            self.stay_l = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/enemies/ork_sword/IDLE/IDLE_00{0}.png",0,7,flip=True,scale=p_scale)
+            self.die_r = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/enemies/ork_sword/DIE/DIE_00{0}.png",0,6,scale=p_scale)
+            self.die_l = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/enemies/ork_sword/DIE/DIE_00{0}.png",0,6,flip=True,scale=p_scale)
+            self.attack_r = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/enemies/ork_sword/ATTAK/ATTAK_00{0}.png",0,6,scale=p_scale)
+            self.attack_l = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/enemies/ork_sword/ATTAK/ATTAK_00{0}.png",0,6,flip=True,scale=p_scale)
+        elif(tipo_enemigo==True):
+            self.walk_r = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/ork_axe/WALK/WALK_00{0}.png",0,7,scale=p_scale)
+            self.walk_l = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/ork_axe/WALK/WALK_00{0}.png",0,7,flip=True,scale=p_scale)
+            self.stay_r = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/ork_axe/IDLE/IDLE_00{0}.png",0,7,scale=p_scale)
+            self.stay_l = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/ork_axe/IDLE/IDLE_00{0}.png",0,7,flip=True,scale=p_scale)
+            self.die_r = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/ork_axe/DIE/DIE_00{0}.png",0,6,scale=p_scale)
+            self.die_l = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/ork_axe/DIE/DIE_00{0}.png",0,6,flip=True,scale=p_scale)
+            self.attack_r = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/ork_axe/ATTAK/ATTAK_00{0}.png",0,6,scale=p_scale)
+            self.attack_l = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/ork_axe/ATTAK/ATTAK_00{0}.png",0,6,flip=True,scale=p_scale)
+        if boss==True:
+            self.walk_r = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/Troll2/Walk_00{0}.png",0,9,scale=0.2)
+            self.walk_l = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/Troll2/Walk_00{0}.png",0,9,flip=True,scale=0.2)
+            self.stay_r = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/Troll2/Idle_00{0}.png",0,9,scale=0.2)
+            self.stay_l = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/Troll2/Idle_00{0}.png",0,9,flip=True,scale=0.2)
+            self.die_r = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/Troll2/Dead_00{0}.png",0,9,scale=0.2)
+            self.die_l = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/Troll2/Dead_00{0}.png",0,9,flip=True,scale=0.2)
+            self.attack_r = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/Troll2/Attack_00{0}.png",0,9,scale=0.2)
+            self.attack_l = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/Troll2/Attack_00{0}.png",0,9,flip=True,scale=0.2)
+        if movimiento==True:
+            self.stay_r = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/enemies/ork_sword/IDLE/IDLE_00{0}.png",0,7,scale=p_scale)
+            self.volar = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/enemies/ork_sword/VOLAR/{0}.png",0,15,flip=True,scale=1)
+            self.volar_r = Auxiliar.getSurfaceFromSeparateFiles("images/caracters/enemies/ork_sword/VOLAR/{0}.png",0,15,flip=False,scale=1)
         self.contador = 0
         self.frame = 0
-        self.lives = 3
+        self.boss=boss
+        self.movimiento=movimiento
+        self.tipo_enemigo=tipo_enemigo
+        if self.boss :
+            self.lives = 10
+            self.attack_cooldown = 1000 
+        elif self.movimiento==False or self.movimiento:
+            self.lives = 3
+            self.attack_cooldown = 3000 
+        elif self.tipo_enemigo :
+            self.lives = 4
+            self.attack_cooldown = 2000 
         self.score = 0
         self.move_x = 0
         self.move_y = 0
-
-        self.movimiento=movimiento
         self.speed_walk =  speed_walk
         self.speed_run =  speed_run
         self.gravity = gravity
         self.jump_power = jump_power
         self.animation = self.stay_r
+        self.tipo_enemigo=tipo_enemigo
         self.direction = DIRECTION_R
         self.image = self.animation[self.frame]
         self.rect = self.image.get_rect()
@@ -39,7 +71,6 @@ class Enemy(pygame.sprite.Sprite):
         self.ground_collition_rect = pygame.Rect(self.collition_rect)
         self.ground_collition_rect.height = GROUND_COLLIDE_H
         self.ground_collition_rect.y = y + self.rect.height - GROUND_COLLIDE_H
-
         self.is_jump = False
         self.is_fall = False
         self.is_shoot = False
@@ -53,7 +84,6 @@ class Enemy(pygame.sprite.Sprite):
         self.jump_height = jump_height
         self.tiempo_muriendo = 0
         self.objetos_lanzados = pygame.sprite.Group()
-        self.attack_cooldown = 3000 
         self.last_attack_time = pygame.time.get_ticks()
         self.tiempo_transcurrido = 0
         self.tiempo_last_jump = 0 # en base al tiempo transcurrido general
@@ -75,7 +105,7 @@ class Enemy(pygame.sprite.Sprite):
         if self.lives > 0:
             if self.movimiento and rect_y < 450:
                 self.animation = self.volar
-                self.direction=DIRECTION_L
+                self.direction=DIRECTION_L                    
                 # Realizar cambios de posición aquí sin interferir con la animación
                 if self.rect.y < rect_y:
                     self.change_y(2)  # Mover hacia abajo
@@ -84,7 +114,7 @@ class Enemy(pygame.sprite.Sprite):
             else:
                 if self.tiempo_transcurrido_move >= self.move_rate_ms:
                     self.tiempo_transcurrido_move = 0
-
+                    
                     if not self.is_on_plataform(plataform_list):
                         if self.move_y == 0:
                             self.is_fall = True
@@ -146,8 +176,11 @@ class Enemy(pygame.sprite.Sprite):
                 self.lanzar_objeto()
                 self.last_attack_time = pygame.time.get_ticks()
     def lanzar_objeto(self):
-        objeto = Objeto(self.rect.centerx, self.rect.centery, self.direction, self, p_scale=0.1,bandera=True,movimiento=self.movimiento)
-
+        objeto = Objeto(self.rect.centerx, self.rect.centery, self.direction, self, p_scale=0.1,bandera=True,movimiento=self.movimiento,tipo_enemigo=self.tipo_enemigo,boss=self.boss)
+        sonido_colision = pygame.mixer.Sound("audios/07_human_atk_sword_2.wav")
+        volumen = 0.1 
+        sonido_colision.set_volume(volumen)
+        sonido_colision.play()
         if self.direction == DIRECTION_R:
             objeto.velocidad_x = objeto.velocidad
         else:
@@ -161,7 +194,7 @@ class Enemy(pygame.sprite.Sprite):
         else:
             self.animation = self.die_l  # Asigna los sprites o imágenes de la animación de muerte hacia la izquierda
 
-    def update(self,delta_ms,plataform_list,pause,rect_y,lista_enemigos,index,jugadores):
+    def update(self,delta_ms,plataform_list,pause,rect_y,lista_enemigos,index):
         if not pause:
             self.do_movement(delta_ms, plataform_list,rect_y)
             self.do_animation(delta_ms,lista_enemigos,index)

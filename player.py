@@ -38,6 +38,8 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+        self.win_lv_1=False
+        self.win_lv_2=False
         self.collition_rect = pygame.Rect(x+self.rect.width/3,y,self.rect.width/3,self.rect.height)
         self.ground_collition_rect = pygame.Rect(self.collition_rect)
         self.ground_collition_rect.height = GROUND_COLLIDE_H
@@ -89,7 +91,10 @@ class Player(pygame.sprite.Sprite):
                     self.animation = self.knife_l
     def lanzar_objeto(self):
         objeto = Objeto(self.rect.centerx, self.rect.centery, self.direction, self, p_scale=0.1)
-
+        sonido_colision = pygame.mixer.Sound("audios/10_human_special_atk_2.wav")
+        volumen = 0.2 
+        sonido_colision.set_volume(volumen)
+        sonido_colision.play()
         if self.direction == DIRECTION_R:
             objeto.velocidad_x = objeto.velocidad
         else:
@@ -191,9 +196,9 @@ class Player(pygame.sprite.Sprite):
             ruta_imagen = pygame.image.load("images/gui/jungle/you_win/star_({0}).png".format(score)) 
             imagen_escala = pygame.transform.scale(ruta_imagen, (150, 150))  # Ajusta el tamaño a 150x150 píxeles
             ruta_imagen2 = pygame.image.load("images/caracters/players/ninja/Heart ({0}).png".format(lives)) 
-            imagen_escala2 = pygame.transform.scale(ruta_imagen2, (400, 150))  # Ajusta el tamaño a 100x100 píxeles
+            imagen_escala2 = pygame.transform.scale(ruta_imagen2, (200, 75))  # Ajusta el tamaño a 100x100 píxeles
             screen.blit(imagen_escala, (1325, 10))
-            screen.blit(imagen_escala2, (550, 10))
+            screen.blit(imagen_escala2, (700, 10))
 
  
     def update(self, delta_ms, plataform_list, lista_enemigos,player):
@@ -209,6 +214,10 @@ class Player(pygame.sprite.Sprite):
 
         colisiones = pygame.sprite.spritecollide(self, self.estrella, True)
         if colisiones:
+            sonido_colision = pygame.mixer.Sound("audios/08_human_charge_1.wav")
+            volumen = 0.2 
+            sonido_colision.set_volume(volumen)
+            sonido_colision.play()
             estrella = colisiones[0]  # Tomamos la primera estrella en caso de colisión múltiple
             self.score += 1
             self.puntaje += 10
@@ -265,6 +274,10 @@ class Player(pygame.sprite.Sprite):
             if((self.tiempo_transcurrido - self.tiempo_last_jump) > self.interval_time_jump):
                 self.jump(True)
                 self.tiempo_last_jump = self.tiempo_transcurrido 
+                sonido_colision = pygame.mixer.Sound("audios/audio_saltar.wav")
+                volumen = 0.2 
+                sonido_colision.set_volume(volumen)
+                sonido_colision.play()
         if not self.is_colliding_enemy():  # Verificar colisión con enemigos
             if(keys[pygame.K_z] and not self.attack_launched and not self.pausa and not self.is_dead):
                 self.knife()
